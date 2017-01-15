@@ -10,7 +10,7 @@ title: Documentation
 GoReleaser builds Go binaries for several platforms, creates a Github release and then
 pushes a Homebrew formulae to a repository. All that wrapped in your favorite CI.
 
-This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md).
+This project adheres to the Contributor Covenant [code of conduct](https://github.com/goreleaser/goreleaser/blob/master/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior to root@carlosbecker.com.
 
 [![Build Status](https://travis-ci.org/goreleaser/goreleaser.svg?branch=master)](https://travis-ci.org/goreleaser/goreleaser) [![Go Report Card](https://goreportcard.com/badge/github.com/goreleaser/goreleaser)](https://goreportcard.com/report/github.com/goreleaser/goreleaser) [![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser)
@@ -181,7 +181,7 @@ end
 
 ## How to contribute
 
-Please refer to our [contributing guidelines](/CONTRIBUTING.md).
+Please refer to our [contributing guidelines](https://github.com/goreleaser/goreleaser/blob/master/CONTRIBUTING.md).
 
 ## Badges
 
