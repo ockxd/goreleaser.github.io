@@ -4,17 +4,33 @@ title: Documentation
 ---
 {% raw %}
 
+<p align="center">
+  <img alt="GoReleaser Logo" src="https://avatars2.githubusercontent.com/u/24697112?v=3&s=200" height="140" />
+  <h3 align="center">GoReleaser</h3>
+  <p align="center">Deliver Go binaries as fast and easily as possible.</p>
+  <p align="center">
+    <a href="/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/goreleaser/goreleaser.svg?style=flat-square"></a>
+    <a href="/LICENSE.md"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+    <a href="https://travis-ci.org/goreleaser/goreleaser"><img alt="Travis" src="https://img.shields.io/travis/goreleaser/goreleaser.svg?style=flat-square"></a>
+    <a href="https://codecov.io/gh/goreleaser/goreleaser"><img alt="Codecov branch" src="https://img.shields.io/codecov/c/github/goreleaser/goreleaser/master.svg?style=flat-square"></a>
+    <a href="https://goreportcard.com/report/github.com/goreleaser/goreleaser"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/goreleaser/goreleaser?style=flat-square"></a>
+    <a href="http://godoc.org/github.com/goreleaser/goreleaser"><img alt="Go Doc" src="https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square"></a>
+    <a href="https://beerpay.io/goreleaser/goreleaser"><img src="https://beerpay.io/goreleaser/goreleaser/badge.svg?style=flat-square" /></a>
+    <a href="https://saythanks.io/to/caarlos0"><img alt="SayThanks.io" src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square"></a>
+    <a href="https://github.com/goreleaser"><img alt="Powered By: GoReleaser" src="https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square"></a>
+  </p>
+</p>
+
+---
+
+
 GoReleaser builds Go binaries for several platforms, creates a GitHub release and then
-pushes a Homebrew formulae to a repository. All that wrapped in your favorite CI.
+pushes a Homebrew formula to a repository. All that wrapped in your favorite CI.
 
-[![Release](https://img.shields.io/github/release/goreleaser/goreleaser.svg?style=flat-square)](https://github.com/goreleaser/goreleaser/releases/latest)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Travis](https://img.shields.io/travis/goreleaser/goreleaser.svg?style=flat-square)](https://travis-ci.org/goreleaser/goreleaser)
-[![Go Report Card](https://goreportcard.com/badge/github.com/goreleaser/goreleaser?style=flat-square)](https://goreportcard.com/report/github.com/goreleaser/goreleaser)
-[![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser)
+This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+We appreciate your contribution. Please refer to our [contributing guidelines](CONTRIBUTING.md) for further information.
 
-This project adheres to the Contributor Covenant [code of conduct](https://github.com/goreleaser/goreleaser/blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-We appreciate your contribution. Please refer to our [contributing guidelines](https://github.com/goreleaser/goreleaser/blob/master/CONTRIBUTING.md).
+For questions join the [#goreleaser](https://gophers.slack.com/messages/goreleaser/) channel in the [Gophers Slack](https://invite.slack.golangbridge.org/).
 
 # Table of contents
 
@@ -28,13 +44,11 @@ We appreciate your contribution. Please refer to our [contributing guidelines](h
 
 GoReleaser is a release automation tool for Golang projects, the goal is to simplify the build, release and publish steps while providing variant customization options for all steps.
 
-GoReleaser is built for CI tools; you only need to [`go get` and execute it](#integration-with-ci) in your build script.
+GoReleaser is built for CI tools; you only need to [download and execute it](#integration-with-ci) in your build script.
 You can [customize](#release-customization) your release process by createing a `goreleaser.yml` file.
 We are also working on integrating with package managers, we currently support Homebrew.
 
 The idea started with a [simple shell script](https://github.com/goreleaser/old-go-releaser), but it quickly became more complex and I also wanted to publish binaries via Homebrew.
-
-_So, the all-new GoReleaser was born._
 
 ##  Quick start
 
@@ -49,7 +63,7 @@ func main() {
 }
 ```
 
-By default GoReleaser will build the **main.go** file located in your current directory, but you can change the build package path in the GoReleaser configuration file.
+By default GoReleaser will build the your current directory, but you can change the build package path in the GoReleaser configuration file.
 
 ```yml
 # goreleaser.yml
@@ -64,9 +78,11 @@ build:
     - amd64
 ```
 
+PS: Invalid GOOS/GOARCH combinations will automatically be skipped.
+
 This configuration specifies the build operating systems to Windows, Linux and MacOS using 64bit architecture, the name of the binaries is `drum-roll`.
 
-GoReleaser will then archive the result binaries of each Os/Arch into a separate file. The default format is `{{ .Binary }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}`.
+GoReleaser will then archive the result binaries of each Os/Arch into a separate file. The default format is `{{.Binary}}_{{.Os}}_{{.Arch}}`.
 You can change the archives name and format. You can also replace the OS and the Architecture with your own.
 Another useful feature is to add files to archives, this is very useful for integrating assets like resource files.
 
@@ -109,20 +125,26 @@ GoReleaser uses the latest [Git tag](https://git-scm.com/book/en/v2/Git-Basics-T
 Create a tag:
 
 ```console
-$ git tag -a v0.1 -m "First release"
+$ git tag -a v0.1.0 -m "First release"
 ```
+
+**Note**: we recommend the use of [semantic versioning](http://semver.org/). We
+are not enforcing it though. We do remove the `v` prefix and then enforce
+that the next character is a number. So, `v0.1.0` and `0.1.0` are virtually the
+same and are both accepted, while `version0.1.0` is not.
+
+If you don't want to create a tag yet but instead simply create a package based on the latest commit, then you can also use the `--snapshot` flag.
 
 Now you can run GoReleaser at the root of your repository:
 
 ```console
-$ go get github.com/goreleaser/goreleaser
 $ goreleaser
 ```
 
-That's it! Check your GitHub release page.
-The release on will look like this:
+That's it! Check your GitHub project's release page.
+The release should look like this:
 
-[![image](https://cloud.githubusercontent.com/assets/245435/21578845/09404c8a-cf78-11e6-92d7-165ddc03ca6c.png)
+[![image](https://cloud.githubusercontent.com/assets/245435/23342061/fbcbd506-fc31-11e6-9d2b-4c1b776dee9c.png)
 ](https://github.com/goreleaser/goreleaser/releases)
 
 ## Environment setup
@@ -147,27 +169,43 @@ func main() {
 }
 ```
 
-`version` will always be the name of the current Git tag.
+`version` will be the current Git tag (with `v` prefix stripped) or the name of the snapshot if you're using the `--snapshot` flag.
 
-## Release customization
+## GoReleaser customization
 
-GoReleaser provides multiple customizations. We will cover them with the help of `goreleaser.yml`:
+GoReleaser provides multiple customizations via the `goreleaser.yml` file.
+You can generate it by running `goreleaser init` or start from scratch. The
+defaults are sensible and fit for most projects.
+
+We'll cover all customizations available bellow:
 
 ### Build customization
 
 ```yml
 # goreleaser.yml
 build:
-  # Path to main.go file.
-  # Default is `main.go`
+  # Path to main.go file or main package.
+  # Default is `.`
   main: ./cmd/main.go
 
-  # Name of the binary. Default is the name of the project directory.
+  # Name of the binary.
+  # Default is the name of the project directory.
   binary: program
 
-  # Custom ldflags.
-  # Default is `-s -w`
-  ldflags: -s -w
+  # Custom build tags.
+  # Default is empty
+  flags: -tags dev
+
+  # Custom ldflags template.
+  # This is parsed with Golang template engine and the following variables
+  # are available:
+  # - Date
+  # - Commit
+  # - Tag
+  # - Version (Tag with the `v` prefix stripped)
+  # The default is `-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}`
+  # Date format is `2006-01-02_15:04:05`
+  ldflags: -s -w -X main.build={{.Version}}
 
   # GOOS list to build in.
   # For more info refer to https://golang.org/doc/install/source#environment
@@ -181,6 +219,31 @@ build:
   # Defaults are 386 and amd64
   goarch:
     - amd64
+    - arm
+    - arm64
+
+  # GOARM to build in when GOARCH is arm.
+  # For more info refer to https://golang.org/doc/install/source#environment
+  # Defaults are 6
+  goarm:
+    - 6
+    - 7
+
+  # List of combinations of GOOS + GOARCH + GOARM to ignore.
+  # Default is empty.
+  ignore:
+    - goos: darwin
+      goarch: 386
+    - goos: linux
+      goarch: arm
+      goarm: 7
+
+  # Hooks can be used to customize the final binary, for example, to run
+  # generator or whatever you want.
+  # Default is both hooks empty.
+  hooks:
+    pre: rice embed-go
+    post: ./script.sh
 ```
 
 ### Archive customization
@@ -192,15 +255,24 @@ archive:
   # This is parsed with Golang template engine and the following variables
   # are available:
   # - Binary
-  # - Version
+  # - Tag
+  # - Version (Tag with the `v` prefix stripped)
   # - Os
   # - Arch
+  # - Arm (ARM version)
   # The default is `{{ .Binary }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}`
   name_template: "{{.Binary}}_{{.Version}}_{{.Os}}_{{.Arch}}"
 
   # Archive format. Valid options are `tar.gz` and `zip`.
   # Default is `tar.gz`
   format: zip
+
+  # Can be used to archive on different formats for specific GOOSs.
+  # Most common use case is to archive as zip on Windows.
+  # Default is empty
+  format_overrides:
+    - goos: windows
+      format: zip
 
   # Replacements for GOOS and GOARCH on the archive name.
   # The keys should be valid GOOS or GOARCH values followed by your custom
@@ -229,7 +301,30 @@ archive:
 release:
   # Repo in which the release will be created.
   # Default is extracted from the origin remote URL.
-  repo: user/repo
+  github:
+    owner: user
+    name: repo
+
+  # If set to true, will not auto-publish the release.
+  # Default is false
+  draft: true
+```
+
+You can also specify a release notes file in markdown format using the
+`--release-notes` flag.
+
+### Snapshot customization
+
+```yml
+# goreleaser.yml
+snapshot:
+  # Allows you to change the name of the generated snapshot
+  # releases. The following variables are available:
+  # - Commit
+  # - Tag
+  # - Timestamp
+  # Default: SNAPSHOT-{{.Commit}}
+  name_template: SNAPSHOT-{{.Commit}}
 ```
 
 ### Homebrew tap customization
@@ -241,7 +336,9 @@ Check [the Homebrew documentation](https://github.com/Homebrew/brew/blob/master/
 # goreleaser.yml
 brew:
   # Reporitory to push the tap to.
-  repo: user/homebrew-tap
+  github:
+    owner: user
+    name: homebrew-tap
 
   # Folder inside the repository to put the formula.
   # Default is the root folder.
@@ -251,10 +348,33 @@ brew:
   # Default is empty.
   caveats: "How to use this binary"
 
-  # Dependencies of your formula
+  # Your app's homepage
+  # Default is empty
+  homepage: "https://example.com/"
+
+  # Your app's description
+  # Default is empty
+  description: "Software to create fast and easy drum rolls."
+
+  # Dependencies of your package
   dependencies:
     - git
     - zsh
+
+  # Packages that conflict with your package
+  conflicts:
+    - svn
+    - bash
+
+  # Packages that run as a service
+  plist:|
+    <?xml version="1.0" encoding="UTF-8"?>
+    ...
+
+  # Custom install script for brew. Default: "bin.install "program"
+  install:|
+    bin.install "program"
+    ...
 ```
 
 By defining the `brew` section, GoReleaser will take care of publishing the Homebrew tap.
@@ -277,6 +397,58 @@ class Program < Formula
 end
 ```
 
+### FPM build customization
+
+GoReleaser can be wired to [fpm]() to generate `.deb`, `.rpm` and other archives. Check its
+[wiki](https://github.com/jordansissel/fpm/wiki) for more info.
+
+[fpm]: https://github.com/jordansissel/fpm
+
+```yml
+# goreleaser.yml
+fpm:
+  # Your app's vendor
+  # Default is empty
+  vendor: Drum Roll Inc.
+  # Your app's homepage
+  # Default is empty
+  homepage: https://example.com/
+
+  # Your app's maintainer (probably you)
+  # Default is empty
+  maintainer: Drummer <drum-roll@example.com>
+
+  # Your app's description
+  # Default is empty
+  description: Software to create fast and easy drum rolls.
+
+  # Your app's license
+  # Default is empty
+  license: Apache 2.0
+
+  # Formats to generate as output
+  formats:
+    - deb
+    - rpm
+
+  # Dependencies of your package
+  dependencies:
+    - git
+    - zsh
+
+  # Packages that conflict with your package
+  conflicts:
+    - svn
+    - bash
+```
+
+Note that GoReleaser will not install `fpm` nor any of its dependencies for you.
+
+### Custom release notes
+
+You can have a markdown file previously created with the release notes, and
+pass it down to goreleaser with the `--release-notes=FILE` flag.
+
 ## Integration with CI
 
 You may want to wire this to auto-deploy your new tags on [Travis](https://travis-ci.org), for example:
@@ -284,7 +456,7 @@ You may want to wire this to auto-deploy your new tags on [Travis](https://travi
 ```yaml
 # .travis.yml
 after_success:
-  test -n "$TRAVIS_TAG" && go get github.com/goreleaser/goreleaser && goreleaser
+  test -n "$TRAVIS_TAG" && curl -sL https://git.io/goreleaser | bash
 ```
 
 Here is how to do it with [CircleCI](https://circleci.com):
@@ -296,11 +468,13 @@ deployment:
     tag: /v[0-9]+(\.[0-9]+)*(-.*)*/
     owner: user
     commands:
-      - go get github.com/goreleaser/goreleaser
-      - goreleaser
+      - curl -sL https://git.io/goreleaser | bash
 ```
+
+*Note that if you test multiple versions or multiple OSes you probably want to make sure GoReleaser is just run once*
 
 ---
 
 Would you like to fix something in the documentation? Feel free to open an [issue](https://github.com/goreleaser/goreleaser/issues).
+
 {% endraw %}
