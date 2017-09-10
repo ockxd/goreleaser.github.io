@@ -1,0 +1,1 @@
+# goreleaser.github.io
