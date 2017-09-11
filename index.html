@@ -19,7 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
-    <style>pre  { padding: 0; }</style>
+    <style>pre { padding: 0; }</style>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
   </head>
   <body>
@@ -103,10 +103,14 @@
             
               <div class="Page" id="introduction">
                 <h1>Introduction</h1>
-                <p>GoReleaser is a release automation tool for Golang projects, the goal is to simplify the build, release and publish steps while providing variant customization options for all steps.</p>
+                <p><a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> is a release automation
+tool for Golang projects, the goal is to simplify the build, release and
+publish steps while providing variant customization options for all steps.</p>
 
-<p>GoReleaser is built for CI tools; you only need to <a href="#integration-with-ci">download and execute it</a> in your build script.
-You can <a href="#release-customization">customize</a> your release process by createing a <code>.goreleaser.yml</code> file.</p>
+<p>GoReleaser is built for CI tools; you only need to
+<a href="#ci_integration">download and execute it</a> in your build script.
+You can <a href="#customization">customize</a> your release process by
+creating a <code>.goreleaser.yml</code> file.</p>
 
 <p>The idea started with a
 <a href="https://github.com/goreleaser/old-go-releaser">simple shell script</a>,
@@ -461,7 +465,8 @@ snapshot:
             
               <div class="Page" id="custom_linux_packages">
                 <h1>Custom linux packages</h1>
-                <p>GoReleaser can be wired to <a href="https://github.com/jordansissel/fpm">fpm</a> to generate <code>.deb</code>, <code>.rpm</code> and other archives. Check its
+                <p>GoReleaser can be wired to <a href="https://github.com/jordansissel/fpm">fpm</a> to
+generate <code>.deb</code>, <code>.rpm</code> and other archives. Check its
 <a href="https://github.com/jordansissel/fpm/wiki">wiki</a> for more info.</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
@@ -512,7 +517,11 @@ fpm:
             
               <div class="Page" id="snapcraft">
                 <h1>Snapcraft</h1>
-                <p>GoReleaser can generate <code>snap</code> packages. <a href="http://snapcraft.io/">Snaps</a> are a new packaging format that will let you publish your project directly to the Ubuntu store. From there it will be installable in all the <a href="https://snapcraft.io/docs/core/install">supported Linux distros</a>, with automatic and transactional updates.</p>
+                <p>GoReleaser can generate <code>snap</code> packages. <a href="http://snapcraft.io/">Snaps</a> are a
+new packaging format that will let you publish your project directly to the
+Ubuntu store. From there it will be installable in all the
+<a href="https://snapcraft.io/docs/core/install">supported Linux distros</a>, with
+automatic and transactional updates.</p>
 
 <p>You can read more about it in the <a href="https://snapcraft.io/docs/">snapcraft docs</a>.</p>
 
@@ -569,7 +578,8 @@ snapcraft:
       daemon: simple
 </code></pre>
 
-<p>Note that GoReleaser will not install <code>snapcraft</code> nor any of its dependencies for you.</p>
+<p>Note that GoReleaser will not install <code>snapcraft</code> nor any of its dependencies
+for you.</p>
 
               </div>
             
@@ -694,7 +704,8 @@ form will not be accepted in any of the official homebrew repositories.</p>
             
               <div class="Page" id="ci_integration">
                 <h1>CI integration</h1>
-                <p>You may want to wire this to auto-deploy your new tags on <a href="https://travis-ci.org">Travis</a>, for example:</p>
+                <p>You may want to wire this to auto-deploy your new tags on
+<a href="https://travis-ci.org">Travis</a>, for example:</p>
 
 <pre><code class="language-yaml"># .travis.yml
 after_success:
@@ -712,7 +723,8 @@ deployment:
       - curl -sL https://git.io/goreleaser | bash
 </code></pre>
 
-<p><em>Note that if you test multiple versions or multiple OSes you probably want to make sure GoReleaser is just run once</em></p>
+<p><strong>Note</strong>: If you test multiple versions or multiple OSes you probably want to
+make sure GoReleaser is just run once.</p>
 
               </div>
             
