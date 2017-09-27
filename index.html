@@ -98,6 +98,10 @@
                 </div>
               
                 <div class="item">
+                  <a href="#git_hub_enterprise_support">GitHub Enterprise Support</a>
+                </div>
+              
+                <div class="item">
                   <a href="#links">Links</a>
                 </div>
               
@@ -791,6 +795,22 @@ deployment:
 
 <p><strong>Note</strong>: If you test multiple versions or multiple OSes you probably want to
 make sure GoReleaser is just run once.</p>
+
+              </div>
+            
+              <div class="Page" id="git_hub_enterprise_support">
+                <h1>GitHub Enterprise Support</h1>
+                <p>You can use GitHub Enteprise within GoReleaser by providing its URLs in
+the <code>.goreleaer.yml</code> configuration file:</p>
+
+<pre><code class="language-yaml"># .goreleaser.yml
+github_urls:
+    api: api.github.foo.bar
+    upload: uploads.github.foo.bar
+    download: github.foo.bar
+</code></pre>
+
+<p>If none is set, it will default to the public GitHub&rsquo;s URLs.</p>
 
               </div>
             
