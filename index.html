@@ -620,6 +620,12 @@ pass it down to goreleaser with the <code>--release-notes=FILE</code> flag.
 GoReleaser will then skip its own release notes generation,
 using the contents of your file instead.</p>
 
+<p>On Unix systems you can also generate the release notes in-line by using <a href="https://en.wikipedia.org/wiki/Process_substitution">process substitution</a>.
+To list all commits since the last tag, but skip ones starting with <code>Merge</code> or <code>docs</code>, you could run this command:</p>
+
+<pre><code class="language-sh">goreleaser --release-notes &lt;(git log --pretty=oneline --abbrev-commit $(git describe --tags --abbrev=0)^.. | grep -v '^[^ ]* \(Merge\|docs\)')
+</code></pre>
+
               </div>
             
               <div class="Page" id="custom_homebrew_tap">
@@ -640,6 +646,11 @@ brew:
   github:
     owner: user
     name: homebrew-tap
+
+  # Git author used to commit to the repository.
+  commit_author:
+    name: goreleaserbot
+    email: goreleaser@carlosbecker.com
 
   # Folder inside the repository to put the formula.
   # Default is the root folder.
