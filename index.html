@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>GoReleaser | Deliver Go binaries as fast and easily as possible</title>
-    <link rel="stylesheet" href="theme/apex/css/index.css">
+    <link rel="stylesheet" href="theme/apex/css/index.css"/>
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -19,9 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/>
     <style>pre { padding: 0; }</style>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   </head>
   <body>
     <div class="Wrapper">
@@ -115,7 +113,9 @@
           <div class="Content">
             
               <div class="Page" id="introduction">
-                <h1>Introduction</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="introduction__introduction" href="#introduction__introduction">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Introduction</h1>
                 <p><a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> is a release automation
 tool for Go projects, the goal is to simplify the build, release and
 publish steps while providing variant customization options for all steps.</p>
@@ -134,7 +134,9 @@ that and rewrote the whole thing in Go.</p>
               </div>
             
               <div class="Page" id="quick_start">
-                <h1>Quick Start</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="quick_start__quick_start" href="#quick_start__quick_start">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Quick Start</h1>
                 <p>In this example we will build, archive and release a Go project.</p>
 
 <p>Create a GitHub repository and add a single main package:</p>
@@ -143,7 +145,7 @@ that and rewrote the whole thing in Go.</p>
 package main
 
 func main() {
-  println(&quot;Ba dum, tss!&quot;)
+  println(&#34;Ba dum, tss!&#34;)
 }
 </code></pre>
 
@@ -169,7 +171,7 @@ and GoReleaser will build one binary in 64bit architecture for each of the opera
 
 <p>GoReleaser will then archive the resulting binaries of each OS/Arch pair into a
 separate file. The default format is <code>{{.ProjectName}}_{{.Os}}_{{.Arch}}</code>.
-You can change the archive&rsquo;s name and format. You can also replace the OS
+You can change the archive’s name and format. You can also replace the OS
 and the Architecture with your own.</p>
 
 <p>Another useful feature is to add additional files to the created archives:</p>
@@ -218,7 +220,7 @@ Create a token <a href="https://github.com/settings/tokens/new">here</a>.</p>
 <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Git tag</a> of your repository.
 Create a tag and push it to GitHub:</p>
 
-<pre><code class="language-console">$ git tag -a v0.1.0 -m &quot;First release&quot;
+<pre><code class="language-console">$ git tag -a v0.1.0 -m &#34;First release&#34;
 $ git push origin v0.1.0
 </code></pre>
 
@@ -227,7 +229,7 @@ are not enforcing it though. We do remove the <code>v</code> prefix and then enf
 that the next character is a number. So, <code>v0.1.0</code> and <code>0.1.0</code> are virtually the
 same and both are accepted, while <code>version0.1.0</code> is not.</p>
 
-<p>If you don&rsquo;t want to create a tag yet, you can also create a release
+<p>If you don’t want to create a tag yet, you can also create a release
 based on the latest commit by using the <code>--snapshot</code> flag.</p>
 
 <p>Now you can run GoReleaser at the root of your repository:</p>
@@ -235,19 +237,22 @@ based on the latest commit by using the <code>--snapshot</code> flag.</p>
 <pre><code class="language-console">$ goreleaser
 </code></pre>
 
-<p>That&rsquo;s all! Check your GitHub project&rsquo;s release page.
+<p>That’s all! Check your GitHub project’s release page.
 The release should look like this:</p>
 
 <p><a href="https://github.com/goreleaser/goreleaser/releases">
-  <img width="100%"
-    src="https://cloud.githubusercontent.com/assets/245435/23342061/fbcbd506-fc31-11e6-9d2b-4c1b776dee9c.png">
+  <img width="100%" src="https://cloud.githubusercontent.com/assets/245435/23342061/fbcbd506-fc31-11e6-9d2b-4c1b776dee9c.png"/>
 </a></p>
 
               </div>
             
               <div class="Page" id="environment_variables">
-                <h1>Environment Variables</h1>
-                <h3>GitHub Token</h3>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="environment_variables__environment_variables" href="#environment_variables__environment_variables">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Environment Variables</h1>
+                <h3 class="Heading"><a class="Anchor" aria-hidden="true" id="environment_variables__git_hub_token" href="#environment_variables__git_hub_token">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>GitHub Token</h3>
 
 <p>GoReleaser requires a GitHub API token with the <code>repo</code> scope selected to
 deploy the artifacts to GitHub.
@@ -260,13 +265,15 @@ Here is how to do it with Travis CI:
               </div>
             
               <div class="Page" id="main_version">
-                <h1>main.version</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="main_version__main_version" href="#main_version__main_version">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>main.version</h1>
                 <p>GoReleaser always sets a <code>main.version</code> <em>ldflag</em>.
 You can use it in your <code>main.go</code> file:</p>
 
 <pre><code class="language-go">package main
 
-var version = &quot;master&quot;
+var version = &#34;master&#34;
 
 func main() {
   println(version)
@@ -274,24 +281,28 @@ func main() {
 </code></pre>
 
 <p><code>version</code> will be set to the current Git tag (the <code>v</code> prefix is stripped) or the name of
-the snapshot, if you&rsquo;re using the <code>--snapshot</code> flag.</p>
+the snapshot, if you’re using the <code>--snapshot</code> flag.</p>
 
 <p>You can override this by changing the <code>ldflags</code> option in the <code>build</code> section.</p>
 
               </div>
             
               <div class="Page" id="customization">
-                <h1>Customization</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="customization__customization" href="#customization__customization">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Customization</h1>
                 <p>GoReleaser provides multiple customizations via the <code>.goreleaser.yml</code> file.
 You can generate it by running <code>goreleaser init</code> or start from scratch.
 The defaults are sensible and fit for most projects.</p>
 
-<p>We&rsquo;ll cover all customizations available bellow.</p>
+<p>We’ll cover all customizations available bellow.</p>
 
               </div>
             
               <div class="Page" id="project_name">
-                <h1>Project Name</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="project_name__project_name" href="#project_name__project_name">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Project Name</h1>
                 <p>The project name is used in the name of the Brew formula, archives, etc.
 If none is given, it will be inferred from the name of the Git project.</p>
 
@@ -302,7 +313,9 @@ project_name: myproject
               </div>
             
               <div class="Page" id="builds">
-                <h1>Builds</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="builds__builds" href="#builds__builds">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Builds</h1>
                 <p>Builds can be customized in multiple ways. You can specify for which <code>GOOS</code> and
 <code>GOARCH</code> binaries are generated, and you can changed the name of the binary, flags, <code>ldflags</code>, hooks, etc.</p>
 
@@ -382,7 +395,9 @@ builds:
               </div>
             
               <div class="Page" id="archive">
-                <h1>Archive</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="archive__archive" href="#archive__archive">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Archive</h1>
                 <p>The binaries built will be archived together with the <code>README</code> and <code>LICENSE</code> files into a
 <code>tar.gz</code> file. In the <code>archive</code> section you can customize the archive name,
 additional files, and format.</p>
@@ -401,7 +416,7 @@ archive:
   # - Arch
   # - Arm (ARM version)
   # Default is `{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}`.
-  name_template: &quot;{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}&quot;
+  name_template: &#34;{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}&#34;
 
   # Archive format. Valid options are `tar.gz`, `zip` and `binary`.
   # If format is `binary`, no archives are created and the binaries are instead uploaded directly.
@@ -440,7 +455,9 @@ archive:
               </div>
             
               <div class="Page" id="checksum">
-                <h1>Checksum</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="checksum__checksum" href="#checksum__checksum">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Checksum</h1>
                 <p>GoReleaser generates a <code>project_1.0.0_checksums.txt</code> file and uploads it with the
 release, so your users can validate if the downloaded files are correct.</p>
 
@@ -455,13 +472,15 @@ checksum:
   # - Tag
   # - Version (Git tag without `v` prefix)
   # Default is `{{ .ProjectName }}_{{ .Version }}_checksums.txt`.
-  name_template: &quot;{{ .ProjectName }}_checksums.txt&quot;
+  name_template: &#34;{{ .ProjectName }}_checksums.txt&#34;
 </code></pre>
 
               </div>
             
               <div class="Page" id="snapshots">
-                <h1>Snapshots</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="snapshots__snapshots" href="#snapshots__snapshots">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Snapshots</h1>
                 <p>Sometimes we want to generate a full build of our project,
 but neither want to validate anything nor upload it to anywhere.
 GoReleaser supports this with the <code>--snapshot</code> flag
@@ -481,29 +500,31 @@ snapshot:
               </div>
             
               <div class="Page" id="fpm_linux_packages">
-                <h1>FPM Linux Packages</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="fpm_linux_packages__fpm_linux_packages" href="#fpm_linux_packages__fpm_linux_packages">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>FPM Linux Packages</h1>
                 <p>GoReleaser can be wired to <a href="https://github.com/jordansissel/fpm">fpm</a> to
 generate <code>.deb</code>, <code>.rpm</code> and other archives. Check its
 <a href="https://github.com/jordansissel/fpm/wiki">wiki</a> for more info.</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 fpm:
-  # Your app's vendor.
+  # Your app&#39;s vendor.
   # Default is empty.
   vendor: Drum Roll Inc.
-  # Your app's homepage.
+  # Your app&#39;s homepage.
   # Default is empty.
   homepage: https://example.com/
 
-  # Your app's maintainer (probably you).
+  # Your app&#39;s maintainer (probably you).
   # Default is empty.
   maintainer: Drummer &lt;drum-roll@example.com&gt;
 
-  # Your app's description.
+  # Your app&#39;s description.
   # Default is empty.
   description: Software to create fast and easy drum rolls.
 
-  # Your app's license.
+  # Your app&#39;s license.
   # Default is empty.
   license: Apache 2.0
 
@@ -526,7 +547,7 @@ fpm:
   # Keys are source paths to get the files from.
   # Values are the destination locations of the files in the package.
   files:
-    &quot;scripts/etc/init.d/&quot;: &quot;/etc/init.d&quot;
+    &#34;scripts/etc/init.d/&#34;: &#34;/etc/init.d&#34;
 </code></pre>
 
 <p>Note that GoReleaser will not install <code>fpm</code> or any of its dependencies for you.</p>
@@ -534,7 +555,9 @@ fpm:
               </div>
             
               <div class="Page" id="snapcraft_linux_packages">
-                <h1>Snapcraft Linux Packages</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="snapcraft_linux_packages__snapcraft_linux_packages" href="#snapcraft_linux_packages__snapcraft_linux_packages">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Snapcraft Linux Packages</h1>
                 <p>GoReleaser can generate <code>snap</code> packages. <a href="http://snapcraft.io/">Snaps</a> are a
 new packaging format, that will let you publish your project directly to the
 Ubuntu store. From there it will be installable in all the
@@ -590,7 +613,7 @@ snapcraft:
       # You can read the documentation about the available plugs and the
       # things they allow:
       # https://snapcraft.io/docs/reference/interfaces).
-      plugs: [&quot;home&quot;, &quot;network&quot;]
+      plugs: [&#34;home&#34;, &#34;network&#34;]
 
       # If you want your app to be autostarted and to always run in the
       # background, you can make it a simple daemon.
@@ -603,11 +626,13 @@ for you.</p>
               </div>
             
               <div class="Page" id="releasing">
-                <h1>Releasing</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="releasing__releasing" href="#releasing__releasing">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Releasing</h1>
                 <p>GoReleaser will create a release in GitHub with the current tag, upload all
 the archives and checksums, also generate a changelog from the commits new since the last tag.</p>
 
-<p>Let&rsquo;s see what can be customized in the <code>release</code> section:</p>
+<p>Let’s see what can be customized in the <code>release</code> section:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 release:
@@ -622,7 +647,9 @@ release:
   draft: true
 </code></pre>
 
-<h2>Custom release notes</h2>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="releasing__custom_release_notes" href="#releasing__custom_release_notes">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Custom release notes</h2>
 
 <p>You can specify a file containing your custom release notes, and
 pass it with the <code>--release-notes=FILE</code> flag.
@@ -633,13 +660,15 @@ You can use Markdown to format the contents of your file.</p>
 <p>On Unix systems you can also generate the release notes in-line by using <a href="https://en.wikipedia.org/wiki/Process_substitution">process substitution</a>.
 To list all commits since the last tag, but skip ones starting with <code>Merge</code> or <code>docs</code>, you could run this command:</p>
 
-<pre><code class="language-sh">goreleaser --release-notes &lt;(git log --pretty=oneline --abbrev-commit $(git describe --tags --abbrev=0)^.. | grep -v '^[^ ]* \(Merge\|docs\)')
+<pre><code class="language-sh">goreleaser --release-notes &lt;(git log --pretty=oneline --abbrev-commit $(git describe --tags --abbrev=0)^.. | grep -v &#39;^[^ ]* \(Merge\|docs\)&#39;)
 </code></pre>
 
               </div>
             
               <div class="Page" id="homebrew">
-                <h1>Homebrew</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="homebrew__homebrew" href="#homebrew__homebrew">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Homebrew</h1>
                 <p>After releasing to GitHub, GoReleaser can generate and publish a <em>homebrew-tap</em>
 recipe into a repository that you have access to.</p>
 
@@ -669,15 +698,15 @@ brew:
 
   # Caveats for the user of your binary.
   # Default is empty.
-  caveats: &quot;How to use this binary&quot;
+  caveats: &#34;How to use this binary&#34;
 
-  # Your app's homepage.
+  # Your app&#39;s homepage.
   # Default is empty.
-  homepage: &quot;https://example.com/&quot;
+  homepage: &#34;https://example.com/&#34;
 
-  # Your app's description.
+  # Your app&#39;s description.
   # Default is empty.
-  description: &quot;Software to create fast and easy drum rolls.&quot;
+  description: &#34;Software to create fast and easy drum rolls.&#34;
 
   # Packages your package depends on.
   dependencies:
@@ -692,19 +721,19 @@ brew:
   # Specify for packages that run as a service.
   # Default is empty.
   plist: |
-    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
     ...
 
   # So you can `brew test` your formula.
   # Default is empty.
   test: |
-    system &quot;#{bin}/program --version&quot;
+    system &#34;#{bin}/program --version&#34;
     ...
 
   # Custom install script for brew.
-  # Default is 'bin.install &quot;program&quot;'.
+  # Default is &#39;bin.install &#34;program&#34;&#39;.
   install: |
-    bin.install &quot;program&quot;
+    bin.install &#34;program&#34;
     ...
 </code></pre>
 
@@ -714,22 +743,22 @@ Assuming that the current tag is <code>v1.2.3</code>, the above configuration wi
 <code>program.rb</code> formula in the <code>Formula</code> folder of <code>user/homebrew-tap</code> repository:</p>
 
 <pre><code class="language-rb">class Program &lt; Formula
-  desc &quot;How to use this binary&quot;
-  homepage &quot;https://github.com/user/repo&quot;
-  url &quot;https://github.com/user/repo/releases/download/v1.2.3/program_v1.2.3_macOs_64bit.zip&quot;
-  version &quot;v1.2.3&quot;
-  sha256 &quot;9ee30fc358fae8d248a2d7538957089885da321dca3f09e3296fe2058e7fff74&quot;
+  desc &#34;How to use this binary&#34;
+  homepage &#34;https://github.com/user/repo&#34;
+  url &#34;https://github.com/user/repo/releases/download/v1.2.3/program_v1.2.3_macOs_64bit.zip&#34;
+  version &#34;v1.2.3&#34;
+  sha256 &#34;9ee30fc358fae8d248a2d7538957089885da321dca3f09e3296fe2058e7fff74&#34;
 
-  depends_on &quot;git&quot;
-  depends_on &quot;zsh&quot;
+  depends_on &#34;git&#34;
+  depends_on &#34;zsh&#34;
 
   def install
-    bin.install &quot;program&quot;
+    bin.install &#34;program&#34;
   end
 end
 </code></pre>
 
-<p><strong>Important</strong>&ldquo;: Note that GoReleaser does not yet generate a valid
+<p><strong>Important</strong>“: Note that GoReleaser does not yet generate a valid
 homebrew-core formula. The generated formulas are meant to be published as
 <a href="https://docs.brew.sh/brew-tap.html">homebrew taps</a>, and in their current
 form will not be accepted in any of the official homebrew repositories.</p>
@@ -737,11 +766,15 @@ form will not be accepted in any of the official homebrew repositories.</p>
               </div>
             
               <div class="Page" id="docker">
-                <h1>Docker</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="docker__docker" href="#docker__docker">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Docker</h1>
                 <p>Since <a href="https://github.com/goreleaser/goreleaser/releases/tag/v0.31.0">v0.31.0</a>,
 GoReleaser supports building and pushing Docker images.</p>
 
-<h2>How it works</h2>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="docker__how_it_works" href="#docker__how_it_works">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>How it works</h2>
 
 <p>You can declare multiple Docker images. They will be matched against
 the binaries generated by your <code>builds</code> section.</p>
@@ -754,16 +787,18 @@ name of your image to your <code>.goreleaser.yml</code> file:</p>
   - image: user/repo
 </code></pre>
 
-<p>You also need to create a <code>Dockerfile</code> in your project&rsquo;s root folder:</p>
+<p>You also need to create a <code>Dockerfile</code> in your project’s root folder:</p>
 
 <pre><code class="language-dockerfile">FROM scratch
 COPY mybin /
-ENTRYPOINT [&quot;/mybin&quot;]
+ENTRYPOINT [&#34;/mybin&#34;]
 </code></pre>
 
 <p>This configuration will build and push a Docker image named <code>user/repo:tagname</code>.</p>
 
-<h2>Customization</h2>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="docker__customization" href="#docker__customization">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Customization</h2>
 
 <p>Of course, you can customize a lot of things:</p>
 
@@ -776,7 +811,7 @@ dockers:
     # GOARCH of the built binary that should be used.
     goarch: amd64
     # GOARM of the built binary that should be used.
-    goarm: ''
+    goarm: &#39;&#39;
     # Name of the built binary that should be used.
     binary: mybinary
     # Docker image name.
@@ -798,13 +833,15 @@ as well as generate one image for each binary in your project.</p>
               </div>
             
               <div class="Page" id="continous_integration">
-                <h1>Continous Integration</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="continous_integration__continous_integration" href="#continous_integration__continous_integration">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Continous Integration</h1>
                 <p>You may want to setup your project to auto-deploy your new tags on
 <a href="https://travis-ci.org">Travis</a>, for example:</p>
 
 <pre><code class="language-yaml"># .travis.yml
 after_success:
-  - test -n &quot;$TRAVIS_TAG&quot; &amp;&amp; curl -sL https://git.io/goreleaser | bash
+  - test -n &#34;$TRAVIS_TAG&#34; &amp;&amp; curl -sL https://git.io/goreleaser | bash
 </code></pre>
 
 <p>Here is how to do it with <a href="https://circleci.com">CircleCI</a>:</p>
@@ -824,13 +861,15 @@ You could change the above example for Travis CI like this:</p>
 
 <pre><code class="language-yaml"># .travis.yml
 after_success:
-  - test &quot;$TRAVIS_OS_NAME&quot; = &quot;linux&quot; -a -n &quot;$TRAVIS_TAG&quot; &amp;&amp; curl -sL https://git.io/goreleaser | bash
+  - test &#34;$TRAVIS_OS_NAME&#34; = &#34;linux&#34; -a -n &#34;$TRAVIS_TAG&#34; &amp;&amp; curl -sL https://git.io/goreleaser | bash
 </code></pre>
 
               </div>
             
               <div class="Page" id="git_hub_enterprise">
-                <h1>GitHub Enterprise</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="git_hub_enterprise__git_hub_enterprise" href="#git_hub_enterprise__git_hub_enterprise">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>GitHub Enterprise</h1>
                 <p>You can use GoReleaser with GitHub Enterprise by providing its URLs in
 the <code>.goreleaer.yml</code> configuration file:</p>
 
@@ -841,12 +880,14 @@ github_urls:
     download: github.foo.bar
 </code></pre>
 
-<p>If none are set, they default to GitHub&rsquo;s public URLs.</p>
+<p>If none are set, they default to GitHub’s public URLs.</p>
 
               </div>
             
               <div class="Page" id="links">
-                <h1>Links</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="links__links" href="#links__links">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Links</h1>
                 <ul>
 <li>Follow the progress on the <a href="https://github.com/goreleaser/goreleaser">GitHub repository</a></li>
 <li>Follow <a href="https://twitter.com/caarlos0">@caarlos0</a> on Twitter for updates</li>
@@ -868,5 +909,6 @@ By participating, you are expected to uphold this code.</p>
         </div>
     </div>
     <script>hljs.initHighlightingOnLoad();</script>
-  </body>
-</html>
+  
+
+</div></body></html>
