@@ -46,7 +46,11 @@
                 </div>
               
                 <div class="item">
-                  <a href="#environment_setup">Environment Setup</a>
+                  <a href="#environment_variables">Environment Variables</a>
+                </div>
+              
+                <div class="item">
+                  <a href="#main_version">main.version</a>
                 </div>
               
                 <div class="item">
@@ -54,19 +58,19 @@
                 </div>
               
                 <div class="item">
-                  <a href="#custom_project_name">Custom project name</a>
+                  <a href="#project_name">Project Name</a>
                 </div>
               
                 <div class="item">
-                  <a href="#custom_builds">Custom builds</a>
+                  <a href="#builds">Builds</a>
                 </div>
               
                 <div class="item">
-                  <a href="#custom_archiving">Custom archiving</a>
+                  <a href="#archive">Archive</a>
                 </div>
               
                 <div class="item">
-                  <a href="#custom_checksum">Custom checksum</a>
+                  <a href="#checksum">Checksum</a>
                 </div>
               
                 <div class="item">
@@ -74,31 +78,31 @@
                 </div>
               
                 <div class="item">
-                  <a href="#custom_linux_packages">Custom linux packages</a>
+                  <a href="#fpm_linux_packages">FPM Linux Packages</a>
                 </div>
               
                 <div class="item">
-                  <a href="#snapcraft_packaging">Snapcraft packaging</a>
+                  <a href="#snapcraft_linux_packages">Snapcraft Linux Packages</a>
                 </div>
               
                 <div class="item">
-                  <a href="#custom_releasing">Custom releasing</a>
+                  <a href="#releasing">Releasing</a>
                 </div>
               
                 <div class="item">
-                  <a href="#custom_homebrew_tap">Custom homebrew tap</a>
+                  <a href="#homebrew">Homebrew</a>
                 </div>
               
                 <div class="item">
-                  <a href="#docker_support">Docker Support</a>
+                  <a href="#docker">Docker</a>
                 </div>
               
                 <div class="item">
-                  <a href="#ci_integration">CI integration</a>
+                  <a href="#continous_integration">Continous Integration</a>
                 </div>
               
                 <div class="item">
-                  <a href="#git_hub_enterprise_support">GitHub Enterprise Support</a>
+                  <a href="#git_hub_enterprise">GitHub Enterprise</a>
                 </div>
               
                 <div class="item">
@@ -113,7 +117,7 @@
               <div class="Page" id="introduction">
                 <h1>Introduction</h1>
                 <p><a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> is a release automation
-tool for Golang projects, the goal is to simplify the build, release and
+tool for Go projects, the goal is to simplify the build, release and
 publish steps while providing variant customization options for all steps.</p>
 
 <p>GoReleaser is built for CI tools; you only need to
@@ -124,15 +128,16 @@ creating a <code>.goreleaser.yml</code> file.</p>
 <p>The idea started with a
 <a href="https://github.com/goreleaser/old-go-releaser">simple shell script</a>,
 but it quickly became more complex and I also wanted to publish binaries via
-Homebrew taps, which would made the script even more hacky, so I let go of
+Homebrew taps, which would have made the script even more hacky, so I let go of
 that and rewrote the whole thing in Go.</p>
 
               </div>
             
               <div class="Page" id="quick_start">
                 <h1>Quick Start</h1>
-                <p>In this example we will build, archive and release a Golang project.
-Create a GitHub repository and add a single main package:</p>
+                <p>In this example we will build, archive and release a Go project.</p>
+
+<p>Create a GitHub repository and add a single main package:</p>
 
 <pre><code class="language-go">// main.go
 package main
@@ -143,7 +148,7 @@ func main() {
 </code></pre>
 
 <p>By default GoReleaser will build the current directory, but you can change
-the build package path in the GoReleaser configuration file.</p>
+the package path in the GoReleaser configuration file:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 # Build customization
@@ -157,17 +162,17 @@ builds:
       - amd64
 </code></pre>
 
-<p>PS: Invalid GOOS/GOARCH combinations will automatically be skipped.</p>
+<p>GoReleaser skips invalid GOOS/GOARCH combinations.</p>
 
-<p>This configuration specifies the build operating systems to Windows, Linux and
-MacOS using 64bit architecture, the name of the binaries is <code>drum-roll</code>.</p>
+<p>With the above configuration the name of all created binaries will be <code>drum-roll</code>
+and GoReleaser will build one binary in 64bit architecture for each of the operating systems Windows, Linux and MacOS.</p>
 
-<p>GoReleaser will then archive the result binaries of each Os/Arch into a
+<p>GoReleaser will then archive the resulting binaries of each OS/Arch pair into a
 separate file. The default format is <code>{{.ProjectName}}_{{.Os}}_{{.Arch}}</code>.
-You can change the archives name and format. You can also replace the OS
-and the Architecture with your own.
-Another useful feature is to add files to archives, this is very useful for
-integrating assets like resource files.</p>
+You can change the archive&rsquo;s name and format. You can also replace the OS
+and the Architecture with your own.</p>
+
+<p>Another useful feature is to add additional files to the created archives:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 # Build customization
@@ -191,9 +196,9 @@ archive:
     - drum-roll.licence.txt
 </code></pre>
 
-<p>This configuration will generate tar archives, containing an additional
-file called <code>drum-roll.licence.txt</code>. The archives will be located in the <code>dist</code>`
-folder:</p>
+<p>This configuration will generate <code>tar</code> archives, each containing an additional
+file called <code>drum-roll.licence.txt</code>.
+The archives will be located in the <code>dist</code> folder:</p>
 
 <ul>
 <li><code>./dist/drum-roll_windows_64-bit.tar.gz</code></li>
@@ -201,9 +206,10 @@ folder:</p>
 <li><code>./dist/drum-roll_Tux_64-bit.tar.gz</code></li>
 </ul>
 
-<p>Next export a <code>GITHUB_TOKEN</code> environment variable with the <code>repo</code> scope
-selected. This will be used to deploy releases to your GitHub repository.
-Create yours <a href="https://github.com/settings/tokens/new">here</a>.</p>
+<p>Next, you need to export a <code>GITHUB_TOKEN</code> environment variable, which should contain a
+GitHub token with the <code>repo</code> scope selected.
+It will be used to deploy releases to your GitHub repository.
+Create a token <a href="https://github.com/settings/tokens/new">here</a>.</p>
 
 <pre><code class="language-console">$ export GITHUB_TOKEN=`YOUR_TOKEN`
 </code></pre>
@@ -219,17 +225,17 @@ $ git push origin v0.1.0
 <p><strong>Note</strong>: We recommend the use of <a href="http://semver.org/">semantic versioning</a>. We
 are not enforcing it though. We do remove the <code>v</code> prefix and then enforce
 that the next character is a number. So, <code>v0.1.0</code> and <code>0.1.0</code> are virtually the
-same and are both accepted, while <code>version0.1.0</code> is not.</p>
+same and both are accepted, while <code>version0.1.0</code> is not.</p>
 
-<p>If you don&rsquo;t want to create a tag yet but instead simply create a package
-based on the latest commit, then you can also use the <code>--snapshot</code> flag.</p>
+<p>If you don&rsquo;t want to create a tag yet, you can also create a release
+based on the latest commit by using the <code>--snapshot</code> flag.</p>
 
 <p>Now you can run GoReleaser at the root of your repository:</p>
 
 <pre><code class="language-console">$ goreleaser
 </code></pre>
 
-<p>That&rsquo;s it! Check your GitHub project&rsquo;s release page.
+<p>That&rsquo;s all! Check your GitHub project&rsquo;s release page.
 The release should look like this:</p>
 
 <p><a href="https://github.com/goreleaser/goreleaser/releases">
@@ -239,22 +245,24 @@ The release should look like this:</p>
 
               </div>
             
-              <div class="Page" id="environment_setup">
-                <h1>Environment Setup</h1>
+              <div class="Page" id="environment_variables">
+                <h1>Environment Variables</h1>
                 <h3>GitHub Token</h3>
 
-<p>GoReleaser requires a GitHub API token with the <code>repo</code> scope checked to
-deploy the artefacts to GitHub. You can create one
-<a href="https://github.com/settings/tokens/new">here</a>.</p>
+<p>GoReleaser requires a GitHub API token with the <code>repo</code> scope selected to
+deploy the artifacts to GitHub.
+You can create one <a href="https://github.com/settings/tokens/new">here</a>.</p>
 
 <p>This token should be added to the environment variables as <code>GITHUB_TOKEN</code>.
 Here is how to do it with Travis CI:
 <a href="https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings">Defining Variables in Repository Settings</a>.</p>
 
-<h3>A note about <code>main.version</code></h3>
-
-<p>GoReleaser always sets a <code>main.version</code> ldflag. You can use it in your
-<code>main.go</code> file:</p>
+              </div>
+            
+              <div class="Page" id="main_version">
+                <h1>main.version</h1>
+                <p>GoReleaser always sets a <code>main.version</code> <em>ldflag</em>.
+You can use it in your <code>main.go</code> file:</p>
 
 <pre><code class="language-go">package main
 
@@ -265,8 +273,8 @@ func main() {
 }
 </code></pre>
 
-<p><code>version</code> will be the current Git tag (with <code>v</code> prefix stripped) or the name of
-the snapshot if you&rsquo;re using the <code>--snapshot</code> flag.</p>
+<p><code>version</code> will be set to the current Git tag (the <code>v</code> prefix is stripped) or the name of
+the snapshot, if you&rsquo;re using the <code>--snapshot</code> flag.</p>
 
 <p>You can override this by changing the <code>ldflags</code> option in the <code>build</code> section.</p>
 
@@ -275,17 +283,17 @@ the snapshot if you&rsquo;re using the <code>--snapshot</code> flag.</p>
               <div class="Page" id="customization">
                 <h1>Customization</h1>
                 <p>GoReleaser provides multiple customizations via the <code>.goreleaser.yml</code> file.
-You can generate it by running <code>goreleaser init</code> or start from scratch. The
-defaults are sensible and fit for most projects.</p>
+You can generate it by running <code>goreleaser init</code> or start from scratch.
+The defaults are sensible and fit for most projects.</p>
 
 <p>We&rsquo;ll cover all customizations available bellow.</p>
 
               </div>
             
-              <div class="Page" id="custom_project_name">
-                <h1>Custom project name</h1>
-                <p>The project name is used in the name of the brew formula, archives, etc.
-If none is given, it will be infered from the name of the git project.</p>
+              <div class="Page" id="project_name">
+                <h1>Project Name</h1>
+                <p>The project name is used in the name of the Brew formula, archives, etc.
+If none is given, it will be inferred from the name of the Git project.</p>
 
 <pre><code class="language-yaml"># .goreleaser.yml
 project_name: myproject
@@ -293,63 +301,63 @@ project_name: myproject
 
               </div>
             
-              <div class="Page" id="custom_builds">
-                <h1>Custom builds</h1>
-                <p>Builds can be customized in multiple ways. You can change which <code>GOOS</code> and
-<code>GOARCH</code> would be built, the name of the binary, flags, ldflags, hooks and etc.</p>
+              <div class="Page" id="builds">
+                <h1>Builds</h1>
+                <p>Builds can be customized in multiple ways. You can specify for which <code>GOOS</code> and
+<code>GOARCH</code> binaries are generated, and you can changed the name of the binary, flags, <code>ldflags</code>, hooks, etc.</p>
 
-<p>Here is a full commented <code>builds</code> section:</p>
+<p>Here is a commented <code>builds</code> section with all fields specified:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 builds:
-  # You can have multiple builds defined as a common yaml list
+  # You can have multiple builds defined as a yaml list
   -
     # Path to main.go file or main package.
-    # Default is `.`
+    # Default is `.`.
     main: ./cmd/main.go
 
     # Name of the binary.
     # Default is the name of the project directory.
     binary: program
 
-    # Custom build tags.
-    # Default is empty
+    # Set flags for custom build tags.
+    # Default is empty.
     flags: -tags dev
 
     # Custom ldflags template.
-    # This is parsed with Golang template engine and the following variables
+    # This is parsed with the Go template engine and the following variables
     # are available:
     # - Date
     # - Commit
     # - Tag
-    # - Version (Tag with the `v` prefix stripped)
-    # The default is `-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}`
-    # Date format is `2006-01-02_15:04:05`
+    # - Version (Git tag without `v` prefix)
+    # Date format is `2006-01-02_15:04:05`.
+    # Default is `-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}`.
     ldflags: -s -w -X main.build={{.Version}}
 
-    # Custom environment variables to be set durign the builds.
-    # Default is empty
+    # Custom environment variables to be set during the builds.
+    # Default is empty.
     env:
       - CGO_ENABLED=0
 
-    # GOOS list to build in.
-    # For more info refer to https://golang.org/doc/install/source#environment
-    # Defaults are darwin and linux
+    # GOOS list to build for.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Defaults are darwin and linux.
     goos:
       - freebsd
       - windows
 
-    # GOARCH to build in.
-    # For more info refer to https://golang.org/doc/install/source#environment
-    # Defaults are 386 and amd64
+    # GOARCH to build for.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Defaults are 386 and amd64.
     goarch:
       - amd64
       - arm
       - arm64
 
-    # GOARM to build in when GOARCH is arm.
-    # For more info refer to https://golang.org/doc/install/source#environment
-    # Defaults are 6
+    # GOARM to build for when GOARCH is arm.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Default is only 6.
     goarm:
       - 6
       - 7
@@ -363,8 +371,8 @@ builds:
         goarch: arm
         goarm: 7
 
-    # Hooks can be used to customize the final binary, for example, to run
-    # generator or whatever you want.
+    # Hooks can be used to customize the final binary,
+    # for example, to run generators.
     # Default is both hooks empty.
     hooks:
       pre: rice embed-go
@@ -373,44 +381,45 @@ builds:
 
               </div>
             
-              <div class="Page" id="custom_archiving">
-                <h1>Custom archiving</h1>
-                <p>The binaries built will be archived within the README and LICENSE files into a
+              <div class="Page" id="archive">
+                <h1>Archive</h1>
+                <p>The binaries built will be archived together with the <code>README</code> and <code>LICENSE</code> files into a
 <code>tar.gz</code> file. In the <code>archive</code> section you can customize the archive name,
-files, and format.</p>
+additional files, and format.</p>
 
-<p>Here is a full commented <code>archive</code> section:</p>
+<p>Here is a commented <code>archive</code> section with all fields specified:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 archive:
   # You can change the name of the archive.
-  # This is parsed with Golang template engine and the following variables
+  # This is parsed with the Go template engine and the following variables
   # are available:
   # - ProjectName
   # - Tag
-  # - Version (Tag with the `v` prefix stripped)
+  # - Version (Git tag without `v` prefix)
   # - Os
   # - Arch
   # - Arm (ARM version)
-  # The default is `{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}`
+  # Default is `{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}`.
   name_template: &quot;{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}&quot;
 
   # Archive format. Valid options are `tar.gz`, `zip` and `binary`.
-  # If format is `binary` no archives are created and the binaries are instead uploaded directly.
-  # In that case name_template the below specified files are ignored.
-  # Default is `tar.gz`
+  # If format is `binary`, no archives are created and the binaries are instead uploaded directly.
+  # In that case name_template and the below specified files are ignored.
+  # Default is `tar.gz`.
   format: zip
 
-  # Can be used to archive on different formats for specific GOOSs.
+  # Can be used to change the archive formats for specific GOOSs.
   # Most common use case is to archive as zip on Windows.
-  # Default is empty
+  # Default is empty.
   format_overrides:
     - goos: windows
       format: zip
 
-  # Replacements for GOOS and GOARCH on the archive name.
-  # The keys should be valid GOOS or GOARCH values followed by your custom
-  # replacements.
+  # Replacements for GOOS and GOARCH in the archive name.
+  # Keys should be valid GOOSs or GOARCHs.
+  # Values are the respective replacements.
+  # Default is empty.
   replacements:
     amd64: 64-bit
     386: 32-bit
@@ -419,7 +428,7 @@ archive:
 
   # Additional files/globs you want to add to the archive.
   # Defaults are any files matching `LICENCE*`, `LICENSE*`,
-  # `README*` and `CHANGELOG*` (case-insensitive)
+  # `README*` and `CHANGELOG*` (case-insensitive).
   files:
     - LICENSE.txt
     - README.md
@@ -430,23 +439,22 @@ archive:
 
               </div>
             
-              <div class="Page" id="custom_checksum">
-                <h1>Custom checksum</h1>
-                <p>GoRelease generates a <code>project_1.0.0_checksums.txt</code> and uploads it to the
-release as well, so your users can validate if the downloaded files are
-right.</p>
+              <div class="Page" id="checksum">
+                <h1>Checksum</h1>
+                <p>GoReleaser generates a <code>project_1.0.0_checksums.txt</code> file and uploads it with the
+release, so your users can validate if the downloaded files are correct.</p>
 
-<p>The <code>checksum</code> section allows the customization of the filename:</p>
+<p>The <code>checksum</code> section allows customizations of the filename:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 checksum:
   # You can change the name of the checksums file.
-  # This is parsed with Golang template engine and the following variables
+  # This is parsed with the Go template engine and the following variables
   # are available:
   # - ProjectName
   # - Tag
-  # - Version (Tag with the `v` prefix stripped)
-  # The default is `{{ .ProjectName }}_{{ .Version }}_checksums.txt`
+  # - Version (Git tag without `v` prefix)
+  # Default is `{{ .ProjectName }}_{{ .Version }}_checksums.txt`.
   name_template: &quot;{{ .ProjectName }}_checksums.txt&quot;
 </code></pre>
 
@@ -454,10 +462,10 @@ checksum:
             
               <div class="Page" id="snapshots">
                 <h1>Snapshots</h1>
-                <p>Sometimes we want to generate a full build of our project for some reason,
-but don&rsquo;t want to validate anything nor upload it to anywhere.
-GoRelease supports this with a <code>--snapshot</code> flag and with a <code>snapshot</code>
-customization section as well.</p>
+                <p>Sometimes we want to generate a full build of our project,
+but neither want to validate anything nor upload it to anywhere.
+GoReleaser supports this with the <code>--snapshot</code> flag
+and also with the <code>snapshot</code> customization section:</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 snapshot:
@@ -466,68 +474,69 @@ snapshot:
   # - Commit
   # - Tag
   # - Timestamp
-  # Default: SNAPSHOT-{{.Commit}}
+  # Default is `SNAPSHOT-{{.Commit}}`.
   name_template: SNAPSHOT-{{.Commit}}
 </code></pre>
 
               </div>
             
-              <div class="Page" id="custom_linux_packages">
-                <h1>Custom linux packages</h1>
+              <div class="Page" id="fpm_linux_packages">
+                <h1>FPM Linux Packages</h1>
                 <p>GoReleaser can be wired to <a href="https://github.com/jordansissel/fpm">fpm</a> to
 generate <code>.deb</code>, <code>.rpm</code> and other archives. Check its
 <a href="https://github.com/jordansissel/fpm/wiki">wiki</a> for more info.</p>
 
 <pre><code class="language-yml"># .goreleaser.yml
 fpm:
-  # Your app's vendor
-  # Default is empty
+  # Your app's vendor.
+  # Default is empty.
   vendor: Drum Roll Inc.
-  # Your app's homepage
-  # Default is empty
+  # Your app's homepage.
+  # Default is empty.
   homepage: https://example.com/
 
-  # Your app's maintainer (probably you)
-  # Default is empty
+  # Your app's maintainer (probably you).
+  # Default is empty.
   maintainer: Drummer &lt;drum-roll@example.com&gt;
 
-  # Your app's description
-  # Default is empty
+  # Your app's description.
+  # Default is empty.
   description: Software to create fast and easy drum rolls.
 
-  # Your app's license
-  # Default is empty
+  # Your app's license.
+  # Default is empty.
   license: Apache 2.0
 
-  # Formats to generate as output
+  # Formats to be generated.
   formats:
     - deb
     - rpm
 
-  # Dependencies of your package
+  # Packages your package depends on.
   dependencies:
     - git
     - zsh
 
-  # Packages that conflict with your package
+  # Packages that conflict with your package.
   conflicts:
     - svn
     - bash
 
-  # Files or directories to add to your package (beyond the binary)
+  # Files or directories to add to your package (beyond the binary).
+  # Keys are source paths to get the files from.
+  # Values are the destination locations of the files in the package.
   files:
     &quot;scripts/etc/init.d/&quot;: &quot;/etc/init.d&quot;
-
 </code></pre>
 
-<p>Note that GoReleaser will not install <code>fpm</code> nor any of its dependencies for you.</p>
+<p>Note that GoReleaser will not install <code>fpm</code> or any of its dependencies for you.</p>
 
               </div>
             
-              <div class="Page" id="snapcraft_packaging">
-                <h1>Snapcraft packaging</h1>
+              <div class="Page" id="snapcraft_linux_packages">
+                <h1>Snapcraft Linux Packages</h1>
                 <p>GoReleaser can generate <code>snap</code> packages. <a href="http://snapcraft.io/">Snaps</a> are a
-new packaging format that will let you publish your project directly to the
+new packaging format, that will let you publish your project directly to the
 Ubuntu store. From there it will be installable in all the
 <a href="https://snapcraft.io/docs/core/install">supported Linux distros</a>, with
 automatic and transactional updates.</p>
@@ -537,7 +546,8 @@ automatic and transactional updates.</p>
 <pre><code class="language-yml"># .goreleaser.yml
 snapcraft:
 
-  # The name of the snap. This is optional and defaults to the project name.
+  # The name of the snap. This is optional.
+  # Default is project name.
   name: drumroll
 
   # Single-line elevator pitch for your amazing snap.
@@ -557,7 +567,7 @@ snapcraft:
   # `devel` will let you release only to the `edge` and `beta` channels in the
   # store. `stable` will let you release also to the `candidate` and `stable`
   # channels. More info about channels here:
-  # https://snapcraft.io/docs/reference/channels.
+  # https://snapcraft.io/docs/reference/channels
   grade: stable
 
   # Snaps can be setup to follow three different confinement policies:
@@ -565,14 +575,14 @@ snapcraft:
   # can only read and write in its own namespace is recommended. Extra
   # permissions for strict snaps can be declared as `plugs` for the app, which
   # are explained later. More info about confinement here:
-  # https://snapcraft.io/docs/reference/confinement).
+  # https://snapcraft.io/docs/reference/confinement
   confinement: strict
 
   # Each binary built by GoReleaser is an app inside the snap. In this section
   # you can declare extra details for those binaries. It is optional.
   apps:
 
-    # The name of the app must be the same name of the binary built.
+    # The name of the app must be the same name as the binary built.
     drumroll:
 
       # If your app requires extra permissions to work outside of its default
@@ -592,11 +602,10 @@ for you.</p>
 
               </div>
             
-              <div class="Page" id="custom_releasing">
-                <h1>Custom releasing</h1>
-                <p>GoRelease will create a release in GitHub with the current tag, upload all
-the archives and checksums, also generating a changelog from the commit
-log between the current and previous tags.</p>
+              <div class="Page" id="releasing">
+                <h1>Releasing</h1>
+                <p>GoReleaser will create a release in GitHub with the current tag, upload all
+the archives and checksums, also generate a changelog from the commits new since the last tag.</p>
 
 <p>Let&rsquo;s see what can be customized in the <code>release</code> section:</p>
 
@@ -609,16 +618,17 @@ release:
     name: repo
 
   # If set to true, will not auto-publish the release.
-  # Default is false
+  # Default is false.
   draft: true
 </code></pre>
 
 <h2>Custom release notes</h2>
 
-<p>You can have a markdown file previously created with the release notes, and
-pass it down to goreleaser with the <code>--release-notes=FILE</code> flag.
+<p>You can specify a file containing your custom release notes, and
+pass it with the <code>--release-notes=FILE</code> flag.
 GoReleaser will then skip its own release notes generation,
-using the contents of your file instead.</p>
+using the contents of your file instead.
+You can use Markdown to format the contents of your file.</p>
 
 <p>On Unix systems you can also generate the release notes in-line by using <a href="https://en.wikipedia.org/wiki/Process_substitution">process substitution</a>.
 To list all commits since the last tag, but skip ones starting with <code>Merge</code> or <code>docs</code>, you could run this command:</p>
@@ -628,12 +638,12 @@ To list all commits since the last tag, but skip ones starting with <code>Merge<
 
               </div>
             
-              <div class="Page" id="custom_homebrew_tap">
-                <h1>Custom homebrew tap</h1>
-                <p>After releasing to GitHub, GoReleaser can generate and publish a homebrew-tap
+              <div class="Page" id="homebrew">
+                <h1>Homebrew</h1>
+                <p>After releasing to GitHub, GoReleaser can generate and publish a <em>homebrew-tap</em>
 recipe into a repository that you have access to.</p>
 
-<p>The brew section specifies how the formula should be created.
+<p>The <code>brew</code> section specifies how the formula should be created.
 You can check the
 <a href="https://github.com/Homebrew/brew/blob/master/docs/How-to-Create-and-Maintain-a-Tap.md">Homebrew documentation</a>
 and the
@@ -648,6 +658,7 @@ brew:
     name: homebrew-tap
 
   # Git author used to commit to the repository.
+  # Defaults are shown.
   commit_author:
     name: goreleaserbot
     email: goreleaser@carlosbecker.com
@@ -660,35 +671,38 @@ brew:
   # Default is empty.
   caveats: &quot;How to use this binary&quot;
 
-  # Your app's homepage
-  # Default is empty
+  # Your app's homepage.
+  # Default is empty.
   homepage: &quot;https://example.com/&quot;
 
-  # Your app's description
-  # Default is empty
+  # Your app's description.
+  # Default is empty.
   description: &quot;Software to create fast and easy drum rolls.&quot;
 
-  # Dependencies of your package
+  # Packages your package depends on.
   dependencies:
     - git
     - zsh
 
-  # Packages that conflict with your package
+  # Packages that conflict with your package.
   conflicts:
     - svn
     - bash
 
-  # Packages that run as a service. Default is empty.
+  # Specify for packages that run as a service.
+  # Default is empty.
   plist: |
     &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
     ...
 
-  # So you can brew test your formula. Default is empty.
+  # So you can `brew test` your formula.
+  # Default is empty.
   test: |
     system &quot;#{bin}/program --version&quot;
     ...
 
-  # Custom install script for brew. Default is 'bin.install &quot;program&quot;'
+  # Custom install script for brew.
+  # Default is 'bin.install &quot;program&quot;'.
   install: |
     bin.install &quot;program&quot;
     ...
@@ -696,7 +710,7 @@ brew:
 
 <p>By defining the <code>brew</code> section, GoReleaser will take care of publishing the
 Homebrew tap.
-Assuming that the current tag is <code>v1.2.3</code>, the above config will generate a
+Assuming that the current tag is <code>v1.2.3</code>, the above configuration will generate a
 <code>program.rb</code> formula in the <code>Formula</code> folder of <code>user/homebrew-tap</code> repository:</p>
 
 <pre><code class="language-rb">class Program &lt; Formula
@@ -722,70 +736,70 @@ form will not be accepted in any of the official homebrew repositories.</p>
 
               </div>
             
-              <div class="Page" id="docker_support">
-                <h1>Docker Support</h1>
+              <div class="Page" id="docker">
+                <h1>Docker</h1>
                 <p>Since <a href="https://github.com/goreleaser/goreleaser/releases/tag/v0.31.0">v0.31.0</a>,
-<a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> support building and
-pushing Docker images.</p>
+GoReleaser supports building and pushing Docker images.</p>
 
 <h2>How it works</h2>
 
-<p>You can declare multiple Docker images. They will be matched against your
+<p>You can declare multiple Docker images. They will be matched against
 the binaries generated by your <code>builds</code> section.</p>
 
-<p>If you have only one <code>build</code> setup, the config is as easy as adding the
-name of your image to your <code>.goreleaser.yml</code>:</p>
+<p>If you have only one <code>build</code> setup,
+the configuration is as easy as adding the
+name of your image to your <code>.goreleaser.yml</code> file:</p>
 
 <pre><code class="language-yaml">dockers:
   - image: user/repo
 </code></pre>
 
-<p>You also need to create a <code>Dockerfile</code> in your repo root folder:</p>
+<p>You also need to create a <code>Dockerfile</code> in your project&rsquo;s root folder:</p>
 
 <pre><code class="language-dockerfile">FROM scratch
 COPY mybin /
 ENTRYPOINT [&quot;/mybin&quot;]
 </code></pre>
 
-<p>This config will build and push a docker image named <code>user/repo:tagname</code>.</p>
+<p>This configuration will build and push a Docker image named <code>user/repo:tagname</code>.</p>
 
 <h2>Customization</h2>
 
-<p>Of course, you can customize a lot of things out of this:</p>
+<p>Of course, you can customize a lot of things:</p>
 
 <pre><code class="language-yaml"># .goreleaser.yml
 dockers:
-  # You can have multiple Docker images
+  # You can have multiple Docker images.
   -
-    # GOOS of the built binary that should be used
+    # GOOS of the built binary that should be used.
     goos: linux
-    # GOARCH of the built binary that should be used
+    # GOARCH of the built binary that should be used.
     goarch: amd64
-    # GOARM of the built binary that should be used
+    # GOARM of the built binary that should be used.
     goarm: ''
-    # Name of the built binary that should be used
+    # Name of the built binary that should be used.
     binary: mybinary
-    # Docker image name
+    # Docker image name.
     image: myuser/myimage
-    # Path to the Dockerfile (from the project root)
+    # Path to the Dockerfile (from the project root).
     dockerfile: Dockerfile
-    # Also tag and push myuser/myimage:latest
+    # Also tag and push myuser/myimage:latest.
     latest: true
-    # If your dockerfile copies more files other than the binary itself,
+    # If your Dockerfile copies files other than the binary itself,
     # you should list them here as well.
     extra_files:
     - config.yml
 </code></pre>
 
-<p>These settings should allow you to generate multiple docker images, using
-multiple <code>FROM</code> statements, for example, as well generate one image for
-each binary in your project.</p>
+<p>These settings should allow you to generate multiple Docker images,
+for example, using multiple <code>FROM</code> statements,
+as well as generate one image for each binary in your project.</p>
 
               </div>
             
-              <div class="Page" id="ci_integration">
-                <h1>CI integration</h1>
-                <p>You may want to wire this to auto-deploy your new tags on
+              <div class="Page" id="continous_integration">
+                <h1>Continous Integration</h1>
+                <p>You may want to setup your project to auto-deploy your new tags on
 <a href="https://travis-ci.org">Travis</a>, for example:</p>
 
 <pre><code class="language-yaml"># .travis.yml
@@ -804,14 +818,20 @@ deployment:
       - curl -sL https://git.io/goreleaser | bash
 </code></pre>
 
-<p><strong>Note</strong>: If you test multiple versions or multiple OSes you probably want to
-make sure GoReleaser is just run once.</p>
+<p>If you test multiple versions or multiple OSes, you probably want to
+make sure GoReleaser is just run once.
+You could change the above example for Travis CI like this:</p>
+
+<pre><code class="language-yaml"># .travis.yml
+after_success:
+  - test &quot;$TRAVIS_OS_NAME&quot; = &quot;linux&quot; -a -n &quot;$TRAVIS_TAG&quot; &amp;&amp; curl -sL https://git.io/goreleaser | bash
+</code></pre>
 
               </div>
             
-              <div class="Page" id="git_hub_enterprise_support">
-                <h1>GitHub Enterprise Support</h1>
-                <p>You can use GitHub Enteprise within GoReleaser by providing its URLs in
+              <div class="Page" id="git_hub_enterprise">
+                <h1>GitHub Enterprise</h1>
+                <p>You can use GoReleaser with GitHub Enterprise by providing its URLs in
 the <code>.goreleaer.yml</code> configuration file:</p>
 
 <pre><code class="language-yaml"># .goreleaser.yml
@@ -821,17 +841,17 @@ github_urls:
     download: github.foo.bar
 </code></pre>
 
-<p>If none is set, it will default to the public GitHub&rsquo;s URLs.</p>
+<p>If none are set, they default to GitHub&rsquo;s public URLs.</p>
 
               </div>
             
               <div class="Page" id="links">
                 <h1>Links</h1>
                 <ul>
-<li>Follow the progress on <a href="https://github.com/goreleaser/goreleaser">GitHub repository</a></li>
+<li>Follow the progress on the <a href="https://github.com/goreleaser/goreleaser">GitHub repository</a></li>
 <li>Follow <a href="https://twitter.com/caarlos0">@caarlos0</a> on Twitter for updates</li>
 <li><a href="https://gophers.slack.com/messages/goreleaser/">Slack</a> to chat about GoReleaser,
-questions and etc. Join using <a href="https://invite.slack.golangbridge.org/">this link</a>.</li>
+questions, etc. Join using <a href="https://invite.slack.golangbridge.org/">this link</a></li>
 <li><a href="https://github.com/goreleaser/goreleaser/blob/master/CONTRIBUTING.md">Contributing Guidelines</a></li>
 </ul>
 
