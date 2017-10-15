@@ -131,6 +131,18 @@ but it quickly became more complex and I also wanted to publish binaries via
 Homebrew taps, which would have made the script even more hacky, so I let go of
 that and rewrote the whole thing in Go.</p>
 
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="introduction__installing_goreleaser" href="#introduction__installing_goreleaser">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Installing Goreleaser</h2>
+
+<p>There are three ways to get going.</p>
+
+<ol>
+<li>Install Goreleaser via go get (<code>goreleaser</code> command will be globally available) <code>go get github.com/goreleaser/goreleaser</code></li>
+<li>On a Mac use <a href="https://github.com/goreleaser/homebrew-tap">Homebrew</a>.</li>
+<li>Install directly <a href="https://github.com/goreleaser/goreleaser/releases/latest">from the binaries</a>.</li>
+</ol>
+
               </div>
             
               <div class="Page" id="quick_start">
@@ -652,6 +664,10 @@ release:
   # If set to true, will not auto-publish the release.
   # Default is false.
   draft: true
+
+  # If set to true, will mark the release as not ready for production.
+  # Default is false.
+  prerelease: true
 </code></pre>
 
 <h2 class="Heading"><a class="Anchor" aria-hidden="true" id="releasing__custom_release_notes" href="#releasing__custom_release_notes">
@@ -878,7 +894,7 @@ after_success:
 	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 </a>GitHub Enterprise</h1>
                 <p>You can use GoReleaser with GitHub Enterprise by providing its URLs in
-the <code>.goreleaer.yml</code> configuration file:</p>
+the <code>.goreleaser.yml</code> configuration file:</p>
 
 <pre><code class="language-yaml"># .goreleaser.yml
 github_urls:
