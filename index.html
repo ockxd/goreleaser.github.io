@@ -668,6 +668,15 @@ release:
   # If set to true, will mark the release as not ready for production.
   # Default is false.
   prerelease: true
+
+  # You can change the name of the GitHub release.
+  # This is parsed with the Go template engine and the following variables
+  # are available:
+  # - ProjectName
+  # - Tag
+  # - Version (Git tag without `v` prefix)
+  # Default is ``
+  name_template: &#34;{{.ProjectName}}-v{{.Version}}&#34;
 </code></pre>
 
 <h2 class="Heading"><a class="Anchor" aria-hidden="true" id="releasing__custom_release_notes" href="#releasing__custom_release_notes">
