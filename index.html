@@ -679,6 +679,24 @@ release:
   name_template: &#34;{{.ProjectName}}-v{{.Version}}&#34;
 </code></pre>
 
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="releasing__customize_the_changelog" href="#releasing__customize_the_changelog">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Customize the changelog</h2>
+
+<p>You can customize how the changelog is generated using the
+<code>changelog</code> section in the config file:</p>
+
+<pre><code class="language-yaml"># .goreleaser.yml
+changelog:
+  filters:
+    # commit messages matching the regexp listed here will be removed from
+    # the changelog
+    exclude:
+      - &#39;^docs:&#39;
+      - typo
+      - (?i)foo
+</code></pre>
+
 <h2 class="Heading"><a class="Anchor" aria-hidden="true" id="releasing__custom_release_notes" href="#releasing__custom_release_notes">
 	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 </a>Custom release notes</h2>
@@ -689,8 +707,10 @@ GoReleaser will then skip its own release notes generation,
 using the contents of your file instead.
 You can use Markdown to format the contents of your file.</p>
 
-<p>On Unix systems you can also generate the release notes in-line by using <a href="https://en.wikipedia.org/wiki/Process_substitution">process substitution</a>.
-To list all commits since the last tag, but skip ones starting with <code>Merge</code> or <code>docs</code>, you could run this command:</p>
+<p>On Unix systems you can also generate the release notes in-line by using
+<a href="https://en.wikipedia.org/wiki/Process_substitution">process substitution</a>.
+To list all commits since the last tag, but skip ones starting with <code>Merge</code> or
+<code>docs</code>, you could run this command:</p>
 
 <pre><code class="language-sh">goreleaser --release-notes &lt;(git log --pretty=oneline --abbrev-commit $(git describe --tags --abbrev=0)^.. | grep -v &#39;^[^ ]* \(Merge\|docs\)&#39;)
 </code></pre>
